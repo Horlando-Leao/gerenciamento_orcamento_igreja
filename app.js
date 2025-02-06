@@ -10,6 +10,7 @@ var authUserRouter = require('./routes/auth.user');
 
 var { sequelize } = require('./models'); // Importa a conexão e os modelos
 
+
 var app = express();
 
 // Inicializar o banco de dados e sincronizar modelos
