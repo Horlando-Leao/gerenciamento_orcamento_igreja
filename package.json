@@ -5,10 +5,12 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
-    "new-seed": "npx sequelize-cli seed:generate --name demo-user",
-    "run-seed": "npx sequelize-cli db:seed:all",
+    "run-all-seed": "npx sequelize-cli db:seed:all",
+    "run-seed": "npx sequelize-cli db:seed --seed",
     "revert-all-seed": "npx sequelize-cli db:seed:undo:all",
-    "revet-last-seed": "npx sequelize-cli db:seed:undo"
+    "revet-last-seed": "npx sequelize-cli db:seed:undo",
+    "create-seed": "npx sequelize-cli seed:generate --name",
+    "db-recreate": "npx sequelize-cli db:seed:undo:all && npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
