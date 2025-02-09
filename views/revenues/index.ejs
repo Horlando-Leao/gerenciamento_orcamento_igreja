@@ -12,21 +12,28 @@
             <h2 class="text-primary"><%= title %></h2>
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRevenueModal">Nova Receita</button>
         </div>
-        <!-- <% console.log('DATA', JSON.stringify(revenues, null, '\t')) %> -->
+        
         <table class="table table-striped table-hover mt-4">
             <thead class="table-dark">
                 <tr>
                     <th>ID</th>
                     <th>Data</th>
                     <th>Valor (R$)</th>
+                    <th>Info</th>
                 </tr>
             </thead>
             <tbody>
                 <% revenues.forEach(revenue => { %>
                     <tr>
                         <td><%= revenue.id %></td>
-                        <td><%= revenue.date %></td>
+                        <td><%= revenue.date.split("-").reverse().join("/") %></td>
                         <td>R$ <%= revenue.amount.toFixed(2) %></td>
+                        <td>
+                            <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editRevenueModal" 
+                                    onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= revenue.amount.toFixed(2) %>')">
+                                Info
+                            </button>
+                        </td>
                     </tr>
                 <% }) %>
             </tbody>
@@ -71,6 +78,46 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal de Edição de Receita -->
+    <div class="modal fade" id="editRevenueModal" tabindex="-1" aria-labelledby="editRevenueModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editRevenueModalLabel">Detalhes da Receita</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/revenues/update" method="POST">
+                        <input type="hidden" id="editId" name="id">
+                        
+                        <div class="mb-3">
+                            <label for="editDate" class="form-label">Data</label>
+                            <input type="date" class="form-control" id="editDate" name="date" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editAmount" class="form-label">Valor (R$)</label>
+                            <input type="number" class="form-control" id="editAmount" name="amount" step="0.01" required>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function populateModal(id, date, amount) {
+            document.getElementById('editId').value = id;
+            document.getElementById('editDate').value = date;
+            document.getElementById('editAmount').value = amount;
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

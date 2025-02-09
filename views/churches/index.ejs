@@ -8,7 +8,10 @@
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <h2 class="text-primary text-center"><%= title %></h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="text-primary"><%= title %></h2>
+            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addChurchModal">Adicionar Igreja</button>
+        </div>
 
         <table class="table table-striped table-hover mt-4">
             <thead class="table-dark">
@@ -29,7 +32,12 @@
                         <td><%= church.city %></td>
                         <td><%= church.state %></td>
                         <td>
-                            <a href="/churches/<%= church.id %>" class="btn btn-info btn-sm">Info</a>
+                            <button class="btn btn-info btn-sm" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#editChurchModal"
+                                    onclick="loadChurchData(<%= church.id %>, '<%= church.name %>', '<%= church.address %>', '<%= church.city %>', '<%= church.state %>', '<%= church.country %>', '<%= church.phone %>', '<%= church.email %>')">
+                                Info
+                            </button>
                         </td>
                         <td>
                             <a href="/revenues/<%= church.id %>" class="btn btn-info btn-sm">Receitas</a>
@@ -41,6 +49,126 @@
 
         <a href="/" class="btn btn-secondary mt-3">Voltar</a>
     </div>
+
+    <!-- Modal de Cadastro de Igreja -->
+    <div class="modal fade" id="addChurchModal" tabindex="-1" aria-labelledby="addChurchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addChurchModalLabel">Nova Igreja</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/churches/add" method="POST">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="address" name="address" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="city" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="state" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="state" name="state" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="country" class="form-label">País</label>
+                            <input type="text" class="form-control" id="country" name="country" value="Brasil" disabled>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="phone" name="phone">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" name="email">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição de Igreja -->
+    <div class="modal fade" id="editChurchModal" tabindex="-1" aria-labelledby="editChurchModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editChurchModalLabel">Detalhes da Igreja</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editChurchForm" method="POST">
+                        <input type="hidden" id="editChurchId" name="id">
+
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="editName" name="name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editAddress" class="form-label">Endereço</label>
+                            <input type="text" class="form-control" id="editAddress" name="address" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editCity" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="editCity" name="city" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editState" class="form-label">Estado</label>
+                            <input type="text" class="form-control" id="editState" name="state" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editPhone" class="form-label">Telefone</label>
+                            <input type="text" class="form-control" id="editPhone" name="phone">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editEmail" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="editEmail" name="email">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadChurchData(id, name, address, city, state, country, phone, email) {
+            document.getElementById('editChurchId').value = id;
+            document.getElementById('editName').value = name;
+            document.getElementById('editAddress').value = address;
+            document.getElementById('editCity').value = city;
+            document.getElementById('editState').value = state;
+            document.getElementById('editPhone').value = phone;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('editChurchForm').action = `/churches/update/${id}`;
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
