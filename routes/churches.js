@@ -27,4 +27,27 @@ router.get('/churches/:id', async (req, res) => {
     }
 });
 
+router.post('/churches/add', async (req, res) => {
+    try {
+        const { name, address, city, state, phone, email } = req.body;
+
+        // Cria a igreja no banco de dados
+        await Church.create({
+            name,
+            address,
+            city,
+            state,
+            country: 'Brasil', // Definido como padrão
+            phone,
+            email
+        });
+
+        // Redireciona para a lista de igrejas após o cadastro
+        res.redirect('/churches');
+    } catch (error) {
+        console.error('Erro ao adicionar igreja:', error);
+        res.status(500).send('Erro ao adicionar igreja.');
+    }
+});
+
 module.exports = router;

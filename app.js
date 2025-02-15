@@ -8,7 +8,7 @@ var indexRouter = require('./routes/index');
 var loginUserRouter = require('./routes/login.user');
 var authUserRouter = require('./routes/auth.user');
 var churchesRouter = require('./routes/churches');
-const revenuesRouter = require('./routes/revenues');
+var revenuesRouter = require('./routes/revenues');
 
 var { sequelize } = require('./models'); // Importa a conexão e os modelos
 

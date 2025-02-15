@@ -20,10 +20,13 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], {});                                                               
+    ], {});
+    
+    console.log("✅ Seed de Users inserido com sucesso!");
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null, {});
+    console.log("🗑️  Seed de Users removido com sucesso!");
   }
 };

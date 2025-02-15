@@ -41,10 +41,13 @@ module.exports = {
         updatedAt: new Date()
       }
     ], {});
+
+    console.log("✅ Seed de Churches inserido com sucesso!");
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Churches', null, {});
+    console.log("🗑️  Seed de Churches removido com sucesso!");
   }
 };
 

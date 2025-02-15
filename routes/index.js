@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Receitas Fácil' });
+  res.render('index', { title: 'Gestão Financeira IBLF' });
 });
 
 module.exports = router;

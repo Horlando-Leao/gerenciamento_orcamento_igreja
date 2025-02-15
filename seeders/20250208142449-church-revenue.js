@@ -31,10 +31,13 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }
-    ], {});                                                               
+    ], {});
+    
+    console.log("✅ Seed de ChurchRevenues inserido com sucesso!");
   },
 
   async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('ChurchRevenues', null, {});
+    console.log("🗑️  Seed de ChurchRevenues removido com sucesso!");
   }
 };
