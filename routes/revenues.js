@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const { ChurchRevenue, Church } = require('../models');
+const { authMiddleware  } = require("../middlewares/authMiddleware.js")
 
 // Listar receitas de todas as igrejas
-router.get('/revenues/:churchId', async (req, res) => {
+router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
     try {
         const churchId = req.params.churchId;
         const revenues = await ChurchRevenue.findAll({ include: Church, where: { churchId } });
@@ -17,15 +18,16 @@ router.get('/revenues/:churchId', async (req, res) => {
 });
 
 // Rota para adicionar uma nova receita
-router.post('/revenues/add', async (req, res) => {
+router.post('/revenues/add', authMiddleware, async (req, res) => {
     try {
         const { churchId, date, amount } = req.body;
-
+        const userId = req.session.user.id
         // Cria a receita no banco de dados
         await ChurchRevenue.create({
             churchId,
             date,
-            amount
+            amount,
+            userId
         });
 
         // Redireciona para a página de receitas da igreja
@@ -35,8 +37,5 @@ router.post('/revenues/add', async (req, res) => {
         res.status(500).send('Erro ao adicionar receita.');
     }
 });
-
-module.exports = router;
-
 
 module.exports = router;

@@ -1,9 +1,10 @@
 const express = require('express');
 var router = express.Router();
 const { Church } = require('../models'); // Importa o modelo
+const { authMiddleware  } = require("../middlewares/authMiddleware.js")
 
 // Listar todas as igrejas
-router.get('/churches', async (req, res) => {
+router.get('/churches', authMiddleware, async (req, res) => {
     try {
         const churches = await Church.findAll();
         res.render('churches/index', { title: 'Lista de Igrejas', churches });
@@ -14,7 +15,7 @@ router.get('/churches', async (req, res) => {
 });
 
 // Detalhes de uma igreja
-router.get('/churches/:id', async (req, res) => {
+router.get('/churches/:id', authMiddleware, async (req, res) => {
     try {
         const church = await Church.findByPk(req.params.id);
         if (!church) {
@@ -27,7 +28,7 @@ router.get('/churches/:id', async (req, res) => {
     }
 });
 
-router.post('/churches/add', async (req, res) => {
+router.post('/churches/add', authMiddleware, async (req, res) => {
     try {
         const { name, address, city, state, phone, email } = req.body;
 

@@ -1,20 +1,33 @@
-var express = require('express');
-var router = express.Router();
-
-const { User } = require('../models'); // Importa o modelo de usuário
+const express = require('express');
+const router = express.Router();
+const { User } = require('../models');
 
 // Rota para processar o login
 router.post('/user/auth', async function(req, res) {
     const { email, password } = req.body;
 
-    // Simulação de autenticação (ajuste para adicionar senha real)
-    const user = await User.findOne({ where: { email, password } });
+    try {
+        const user = await User.findOne({ where: { email, password } });
 
-    if (user) {
-        res.redirect('/churches'); // Autenticação simples (sem senha)
-    } else {
-        res.send('Usuário não encontrado!');
+        if (!user) {
+            return res.status(401).send("Usuário não encontrado!");
+        }
+
+        // Armazena os dados do usuário na sessão
+        req.session.user = { id: user.id, name: user.name, email: user.email };
+
+        res.redirect('/churches');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Erro interno no servidor");
     }
+});
+
+// Rota para logout
+router.get('/user/logout', (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/user/login');
+    });
 });
 
 module.exports = router;
