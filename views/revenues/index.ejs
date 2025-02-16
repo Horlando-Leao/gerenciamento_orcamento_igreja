@@ -88,7 +88,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/revenues/update" method="POST">
+                    <form id="editRevenueForm" action="/revenues/update" method="POST">
                         <input type="hidden" id="editId" name="id">
                         
                         <div class="mb-3">
@@ -116,6 +116,7 @@
             document.getElementById('editId').value = id;
             document.getElementById('editDate').value = date;
             document.getElementById('editAmount').value = amount;
+            document.getElementById('editRevenueForm').action = `/revenues/update/${id}`;
         }
     </script>
 

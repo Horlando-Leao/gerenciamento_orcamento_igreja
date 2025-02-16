@@ -51,4 +51,36 @@ router.post('/churches/add', authMiddleware, async (req, res) => {
     }
 });
 
+
+// Atualizar uma igreja existente
+router.post('/churches/update/:id', authMiddleware, async (req, res) => {
+    try {
+        const { id, name, address, city, state, phone, email } = req.body;
+
+        // Busca a igreja pelo ID
+        const church = await Church.findByPk(id);
+
+        if (!church) {
+            return res.status(404).send('Igreja não encontrada');
+        }
+
+        // Atualiza os dados da igreja
+        await church.update({
+            name,
+            address,
+            city,
+            state,
+            phone,
+            email
+        });
+
+        // Redireciona para a lista de igrejas após a atualização
+        res.redirect('/churches');
+    } catch (error) {
+        console.error('Erro ao atualizar igreja:', error);
+        res.status(500).send('Erro ao atualizar igreja.');
+    }
+});
+
+
 module.exports = router;

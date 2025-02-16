@@ -38,4 +38,33 @@ router.post('/revenues/add', authMiddleware, async (req, res) => {
     }
 });
 
+
+// Atualizar uma receita existente
+router.post('/revenues/update/:id', authMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { date, amount } = req.body;
+
+        // Busca a receita pelo ID
+        const revenue = await ChurchRevenue.findByPk(id);
+
+        if (!revenue) {
+            return res.status(404).send('Receita não encontrada');
+        }
+
+        // Atualiza os dados da receita
+        await revenue.update({
+            date,
+            amount
+        });
+
+        // Redireciona para a página de receitas da igreja após a atualização
+        res.redirect(`/revenues/${revenue.churchId}`);
+    } catch (error) {
+        console.error('Erro ao atualizar receita:', error);
+        res.status(500).send('Erro ao atualizar receita.');
+    }
+});
+
+
 module.exports = router;
