@@ -17,7 +17,7 @@ var app = express();
 
 // config session ===============================================
 app.use(session({
-    store: new SQLiteStore({ db: 'sessions.sqlite', dir: path.join(__dirname, 'databases') }),
+    store: new SQLiteStore({ db: 'sessions.sqlite', dir: './databases' }),
     secret: 'chave-secreta', // Altere para uma chave segura
     resave: false,
     saveUninitialized: false,
