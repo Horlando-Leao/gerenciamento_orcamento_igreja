@@ -6,14 +6,16 @@ module.exports = {
       {
         id: 1,
         userId: 1,
-        roles: JSON.stringify({ "churchsId": [1, 2], "role": "admin" }), // Usuário 1 tem acesso às igrejas 1 e 2 como admin
+        role: "ADMINISTRADOR", // Usuário 1 tem acesso às igrejas 1 e 2 como admin
+        churchsId: null,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
         id: 2,
         userId: 2,
-        roles: JSON.stringify({ "churchsId": [1, 3], "role": "editor" }), // Usuário 2 acessa igrejas 1 e 3 como editor
+        role: "DIRIGENTE_IGREJA",
+        churchsId: "1",
         createdAt: new Date(),
         updatedAt: new Date(),
       }
