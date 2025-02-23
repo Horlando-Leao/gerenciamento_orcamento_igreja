@@ -10,7 +10,7 @@ router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
         const revenues = await ChurchRevenue.findAll({ include: Church, where: { churchId } });
         const church = await Church.findByPk(churchId);
         
-        res.render('revenues/index', { title: 'Receitas das Igrejas', revenues, church });
+        res.render('revenues/index', { title: 'Receitas das Igrejas', revenues, church, user: { name: req.session.user.name }});
     } catch (error) {
         console.error('Erro ao buscar receitas:', error);
         res.status(500).send('Erro ao carregar receitas');

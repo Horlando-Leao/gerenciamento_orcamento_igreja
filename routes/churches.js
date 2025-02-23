@@ -7,7 +7,7 @@ const { authMiddleware  } = require("../middlewares/authMiddleware.js")
 router.get('/churches', authMiddleware, async (req, res) => {
     try {
         const churches = await Church.findAll();
-        res.render('churches/index', { title: 'Lista de Igrejas', churches });
+        res.render('churches/index', { title: 'Lista de Igrejas', churches, user: { name: req.session.user.name } });
     } catch (error) {
         console.error('Erro ao buscar igrejas:', error);
         res.status(500).send('Erro ao carregar igrejas');

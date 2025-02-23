@@ -15,7 +15,8 @@ router.post('/user/auth', async function(req, res) {
 
         // Armazena os dados do usuário na sessão
         req.session.user = { id: user.id, name: user.name, email: user.email };
-
+        req.session.alertMessage =null;
+         
         res.redirect('/churches');
     } catch (error) {
         console.error(error);
