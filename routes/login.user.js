@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const { hasAuthMiddleware } = require("../middlewares/hasAuthMiddleware");
 
 // Rota para processar o login
-router.get('/user/login', async function(req, res) {
+router.get('/user/login', hasAuthMiddleware, async function(req, res) {
     res.render('login', {alertMessage: req.session.alertMessage});
 });
 
