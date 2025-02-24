@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const UserConfig = require('../models/userConfig');
+const { gerarSenha } = require("../helpers/gerarSenha");
+
 
 // Lista todos os usuários
 router.get('/users/manage', async (req, res) => {
@@ -32,6 +34,21 @@ router.post('/users/update/:id', async (req, res) => {
     try {
         const { name, email, password } = req.body;
         await User.update({ name, email, password }, { where: { id: req.params.id } });
+        res.redirect('/users/manage');
+    } catch (error) {
+        res.status(500).send('Erro ao atualizar usuário');
+    }
+});
+
+// Resetar senha
+router.post('/users/reset-auth/:id', async (req, res) => {
+    try {
+        const { email } = req.body;
+        const response = await User.findOne({ where: { email: email } });
+        response;
+    
+        // codigo que enviar o email
+        
         res.redirect('/users/manage');
     } catch (error) {
         res.status(500).send('Erro ao atualizar usuário');
