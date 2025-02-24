@@ -16,51 +16,36 @@ router.get('/users/manage', async (req, res) => {
     }
 });
 
-// Formulário para criar um novo usuário
-router.get('/new', (req, res) => {
-    res.render('users/new', { title: 'Novo Usuário' });
-});
-
 // Cria um novo usuário
-router.post('/add', async (req, res) => {
+router.post('/users/add', async (req, res) => {
     try {
         const { name, email, password } = req.body;
         await User.create({ name, email, password });
-        res.redirect('/users');
+        res.redirect('/users/manage');
     } catch (error) {
         res.status(500).send('Erro ao criar usuário');
     }
 });
 
-// Formulário de edição de usuário
-router.get('/edit/:id', async (req, res) => {
-    try {
-        const user = await User.findByPk(req.params.id);
-        res.render('users/edit', { title: 'Editar Usuário', user });
-    } catch (error) {
-        res.status(500).send('Erro ao buscar usuário');
-    }
-});
-
 // Atualiza um usuário
-router.post('/update/:id', async (req, res) => {
+router.post('/users/update/:id', async (req, res) => {
     try {
         const { name, email, password } = req.body;
         await User.update({ name, email, password }, { where: { id: req.params.id } });
-        res.redirect('/users');
+        res.redirect('/users/manage');
     } catch (error) {
         res.status(500).send('Erro ao atualizar usuário');
     }
 });
 
 // Deleta um usuário
-router.post('/delete/:id', async (req, res) => {
-    try {
-        await User.destroy({ where: { id: req.params.id } });
-        res.redirect('/users');
-    } catch (error) {
-        res.status(500).send('Erro ao deletar usuário');
-    }
-});
+// router.post('/users/delete/:id', async (req, res) => {
+//     try {
+//         await User.destroy({ where: { id: req.params.id } });
+//         res.redirect('/users');
+//     } catch (error) {
+//         res.status(500).send('Erro ao deletar usuário');
+//     }
+// });
 
 module.exports = router;
