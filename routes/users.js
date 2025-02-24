@@ -9,7 +9,7 @@ router.get('/users/manage', async (req, res) => {
         const users = await User.findAll({
             include: UserConfig
         });
-        res.render('users/index', { title: 'Usuários', users });
+        res.render('users/index', { title: 'Usuários', users, user: { name: req.session.user.name } });
     } catch (error) {
         console.log(error)
         res.status(500).send('Erro ao buscar usuários');
