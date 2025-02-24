@@ -72,7 +72,7 @@
                             <input type="password" class="form-control" id="password" name="password" required>
                         </div>
                         <div class="mb-3">
-                            <label for="role" class="form-label">Papel</label>
+                            <label for="role" class="form-label">Perfil</label>
                             <select class="form-control" id="role" name="role" required>
                                 <option value="ADMINISTRADOR">ADMINISTRADOR</option>
                                 <option value="DIRIGENTE_IGREJA">DIRIGENTE IGREJA</option>
@@ -109,7 +109,7 @@
                             <input type="email" class="form-control" id="editEmail" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="editRole" class="form-label">Papel</label>
+                            <label for="editRole" class="form-label">Perfil</label>
                             <select class="form-control" id="editRole" name="role" required>
                                 <option value="ADMINISTRADOR">ADMINISTRADOR</option>
                                 <option value="DIRIGENTE_IGREJA">DIRIGENTE IGREJA</option>
@@ -117,6 +117,7 @@
                             </select>
                         </div>
                         <div class="modal-footer">
+                            <a id="actionResetPass" href="/users/reset-auth?email=" class="btn btn-secondary">Resetar senha</a>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Salvar</button>
                         </div>
@@ -133,9 +134,17 @@
             document.getElementById('editEmail').value = email;
             document.getElementById('editRole').value = role;
             document.getElementById('editUserForm').action = `/users/update/${id}`;
+            document.getElementById('actionResetPass').href = `/users/reset-auth?email=${email}`;
         }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <% if (novaSenhaAlerta) { %>
+        <script>
+            alert("<%= novaSenhaAlerta %>");
+        </script>
+        <% novaSenhaAlerta = null; %> <!-- Limpa a mensagem da sessão -->
+    <% } %>    
 </body>
 </html>
