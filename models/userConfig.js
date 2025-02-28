@@ -24,7 +24,8 @@ const UserConfig = sequelize.define('UserConfig', {
     },          
     churchsId: { // lista de ids separado por ,
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: null
     },
 }, {
     timestamps: true

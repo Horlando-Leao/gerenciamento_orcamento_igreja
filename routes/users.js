@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Church = require('../models/church');
 const UserConfig = require('../models/userConfig');
 const { gerarSenha } = require("../helpers/gerarSenha");
 
@@ -11,9 +12,11 @@ router.get('/users/manage', async (req, res) => {
         const users = await User.findAll({
             include: UserConfig
         });
+        
+        const churches = await Church.findAll({ attributes: ['id', 'name'] });
         const novaSenhaAlerta = req.session.novaSenhaAlerta;
         req.session.novaSenhaAlerta = null;
-        res.render('users/index', { title: 'Usuários', users, user: { name: req.session.user.name }, novaSenhaAlerta });
+        res.render('users/index', { title: 'Usuários', users, user: { name: req.session.user.name }, novaSenhaAlerta, churches });
     } catch (error) {
         console.log(error)
         res.status(500).send('Erro ao buscar usuários');
@@ -23,8 +26,12 @@ router.get('/users/manage', async (req, res) => {
 // Cria um novo usuário
 router.post('/users/add', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        await User.create({ name, email, password });
+        const { name, email, password, role } = req.body;
+        const newUser  = await User.create({ name, email, password });
+        UserConfig.create({ 
+            userId: newUser.dataValues.id,
+            role: role
+        })
         res.redirect('/users/manage');
     } catch (error) {
         res.status(500).send('Erro ao criar usuário');
