@@ -4,9 +4,9 @@ const User = require('../models/user');
 const Church = require('../models/church');
 const UserConfig = require('../models/userConfig');
 const { gerarSenha } = require("../helpers/gerarSenha");
+const { ChurchIdTranformer } = require("../transformers/churchsIds")
 
-
-// Lista todos os usuários
+// Lista todos os usuários  
 router.get('/users/manage', async (req, res) => {
     try {
         const users = await User.findAll({
@@ -26,12 +26,9 @@ router.get('/users/manage', async (req, res) => {
 // Cria um novo usuário
 router.post('/users/add', async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
-        const newUser  = await User.create({ name, email, password });
-        UserConfig.create({ 
-            userId: newUser.dataValues.id,
-            role: role
-        })
+        const { name, email, password, role, churchsId } = req.body;
+        const newUser = await User.create({ name, email, password });
+        UserConfig.create({ userId: newUser.dataValues.id, role, churchsId: ChurchIdTranformer.toDatabase(churchsId) })
         res.redirect('/users/manage');
     } catch (error) {
         res.status(500).send('Erro ao criar usuário');
@@ -41,10 +38,14 @@ router.post('/users/add', async (req, res) => {
 // Atualiza um usuário
 router.post('/users/update/:id', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        await User.update({ name, email, password }, { where: { id: req.params.id } });
+        const userId = req.params.id;
+        const { name, email, password, role, editChurchsId } = req.body;
+
+        await User.update({ name, email, password }, { where: { id: userId } });
+        await UserConfig.update({ role, churchsId: ChurchIdTranformer.toDatabase(editChurchsId) }, { where: { userId: userId } });
         res.redirect('/users/manage');
     } catch (error) {
+        console.log(error);
         res.status(500).send('Erro ao atualizar usuário');
     }
 });

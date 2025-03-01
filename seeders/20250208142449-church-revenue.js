@@ -10,6 +10,7 @@ module.exports = {
         userId: 1,
         date: '2025-02-01',
         amount: 500.00,
+        t
         createdAt: new Date(),
         updatedAt: new Date()
       },

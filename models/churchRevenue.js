@@ -2,6 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../database'); // Importa a conexão do banco de dados
 const Church = require('./church');  // Importa o modelo Church
 const User = require('./user'); // Importa o modelo Church
+const transactionTypeEnum = require('./enums/transactionType');
 
 const ChurchRevenue = sequelize.define('ChurchRevenue', {
     id: {
@@ -16,6 +17,15 @@ const ChurchRevenue = sequelize.define('ChurchRevenue', {
             model: Church,
             key: 'id'
         }
+    },
+    type: {
+        type: DataTypes.ENUM,
+        values: Object.values(transactionTypeEnum), // Usa os valores do ENUM
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING,
+        allowNull: true
     },
     date: {
         type: DataTypes.DATEONLY,
