@@ -1,19 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const { ChurchRevenue, Church } = require('../models');
-const { authMiddleware  } = require("../middlewares/authMiddleware.js")
+const { authMiddleware  } = require("../middlewares/authMiddleware.js");
+const { roleUserEnum } = require('../models/enums/roleUser.js');
 
 // Listar receitas de todas as igrejas
 router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
     try {
         const churchId = req.params.churchId;
+
+        if(req.session.user.role === roleUserEnum.ADMINISTRADOR){
+            /** pass */
+        } else if (req.session.user.churchsId.split(",").includes(churchId)){
+            /** pass */
+        } else {
+            throw new Error(`Usuário não é administrador e nem tem acesso ao id da igreja ${churchId}`) 
+        }
+
         const revenues = await ChurchRevenue.findAll({ include: Church, where: { churchId } });
         const church = await Church.findByPk(churchId);
         
         res.render('revenues/index', { title: 'Receitas das Igrejas', revenues, church, user: { name: req.session.user.name }});
     } catch (error) {
-        console.error('Erro ao buscar receitas:', error);
-        res.status(500).send('Erro ao carregar receitas');
+        res.status(500).send(`Erro ao carregar receitas: ${error}`);
     }
 });
 

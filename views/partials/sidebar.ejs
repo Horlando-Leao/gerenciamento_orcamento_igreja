@@ -8,11 +8,13 @@
                 <i class="bi bi-building"></i> Início
             </a>
         </li>
+        <% if (user.role === "ADMINISTRADOR") { %>
         <li>
             <a href="/users/manage" class="nav-link text-white">
                 <i class="bi bi-building"></i> Usuário
             </a>
         </li>
+        <% } %>
         <li>
             <a href="/user/logout" class="nav-link text-white">
                 <i class="bi bi-cash-stack"></i> Sair

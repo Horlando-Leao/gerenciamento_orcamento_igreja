@@ -15,6 +15,20 @@ class ChurchIdTranformer {
         
         return ids.map(id => id.trim()).join(",");
     }
+
+    /**
+     * 
+     * @param {String} ids
+     * 
+     * @returns {Array}
+     */
+    static toSearch(ids) {
+        if (ids === undefined){
+            return []
+        }
+
+        return ids.split(",");
+    }
 }
 
 module.exports = { ChurchIdTranformer }

@@ -4,4 +4,4 @@ const roleUserEnum = Object.freeze({
     DESABILITADO: "DESABILITADO"
 });
 
-export default roleUserEnum;
+module.exports = { roleUserEnum };

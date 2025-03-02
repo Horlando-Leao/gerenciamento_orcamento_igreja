@@ -4,10 +4,12 @@ const User = require('../models/user');
 const Church = require('../models/church');
 const UserConfig = require('../models/userConfig');
 const { gerarSenha } = require("../helpers/gerarSenha");
-const { ChurchIdTranformer } = require("../transformers/churchsIds")
+const { ChurchIdTranformer } = require("../transformers/churchsIds");
+const { hasAdministradorMiddle } = require('../middlewares/hasAdministradorMiddle');
+const { authMiddleware } = require('../middlewares/authMiddleware');
 
 // Lista todos os usuários  
-router.get('/users/manage', async (req, res) => {
+router.get('/users/manage', authMiddleware, hasAdministradorMiddle, async (req, res) => {
     try {
         const users = await User.findAll({
             include: UserConfig
@@ -16,7 +18,7 @@ router.get('/users/manage', async (req, res) => {
         const churches = await Church.findAll({ attributes: ['id', 'name'] });
         const novaSenhaAlerta = req.session.novaSenhaAlerta;
         req.session.novaSenhaAlerta = null;
-        res.render('users/index', { title: 'Usuários', users, user: { name: req.session.user.name }, novaSenhaAlerta, churches });
+        res.render('users/index', { title: 'Usuários', users, user: req.session.user, novaSenhaAlerta, churches });
     } catch (error) {
         console.log(error)
         res.status(500).send('Erro ao buscar usuários');
@@ -24,7 +26,7 @@ router.get('/users/manage', async (req, res) => {
 });
 
 // Cria um novo usuário
-router.post('/users/add', async (req, res) => {
+router.post('/users/add', authMiddleware,  hasAdministradorMiddle, async (req, res) => {
     try {
         const { name, email, password, role, churchsId } = req.body;
         const newUser = await User.create({ name, email, password });
@@ -36,7 +38,7 @@ router.post('/users/add', async (req, res) => {
 });
 
 // Atualiza um usuário
-router.post('/users/update/:id', async (req, res) => {
+router.post('/users/update/:id', authMiddleware, hasAdministradorMiddle, async (req, res) => {
     try {
         const userId = req.params.id;
         const { name, email, password, role, editChurchsId } = req.body;
@@ -51,7 +53,7 @@ router.post('/users/update/:id', async (req, res) => {
 });
 
 // Resetar senha
-router.get('/users/reset-auth', async (req, res) => {
+router.get('/users/reset-auth', authMiddleware, hasAdministradorMiddle, async (req, res) => {
     try {
         const email  = req.query.email;
         const response = await User.findOne({ where: { email: email } });
