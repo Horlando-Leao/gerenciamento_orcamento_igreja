@@ -20,14 +20,16 @@ router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
 // Rota para adicionar uma nova receita
 router.post('/revenues/add', authMiddleware, async (req, res) => {
     try {
-        const { churchId, date, amount } = req.body;
+        const { churchId, date, amount, type, description } = req.body;
         const userId = req.session.user.id
         // Cria a receita no banco de dados
         await ChurchRevenue.create({
             churchId,
             date,
             amount,
-            userId
+            userId,
+            type,
+            description
         });
 
         // Redireciona para a página de receitas da igreja
@@ -43,7 +45,7 @@ router.post('/revenues/add', authMiddleware, async (req, res) => {
 router.post('/revenues/update/:id', authMiddleware, async (req, res) => {
     try {
         const { id } = req.params;
-        const { date, amount } = req.body;
+        const { date, amount, type, description} = req.body;
 
         // Busca a receita pelo ID
         const revenue = await ChurchRevenue.findByPk(id);
@@ -55,7 +57,9 @@ router.post('/revenues/update/:id', authMiddleware, async (req, res) => {
         // Atualiza os dados da receita
         await revenue.update({
             date,
-            amount
+            amount,
+            type,
+            description
         });
 
         // Redireciona para a página de receitas da igreja após a atualização

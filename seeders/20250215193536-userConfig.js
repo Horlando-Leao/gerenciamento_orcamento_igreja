@@ -7,7 +7,7 @@ module.exports = {
         id: 1,
         userId: 1,
         role: "ADMINISTRADOR", // Usuário 1 tem acesso às igrejas 1 e 2 como admin
-        churchsId: null,
+        churchsId: "",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

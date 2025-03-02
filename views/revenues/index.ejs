@@ -22,6 +22,7 @@
                     <th>ID</th>
                     <th>Data</th>
                     <th>Valor (R$)</th>
+                    <th>Tipo</th>
                     <th>Info</th>
                 </tr>
             </thead>
@@ -31,9 +32,10 @@
                         <td><%= revenue.id %></td>
                         <td><%= revenue.date.split("-").reverse().join("/") %></td>
                         <td>R$ <%= revenue.amount.toFixed(2) %></td>
+                        <td><%= revenue.type == "INCOME" ? "Receita" : "Despesa" %></td>
                         <td>
                             <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editRevenueModal" 
-                                    onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= revenue.amount.toFixed(2) %>')">
+                                    onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= revenue.amount.toFixed(2) %>', '<%= revenue.type %>', '<%= revenue.description %>')">
                                 Info
                             </button>
                         </td>
@@ -73,8 +75,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="role" class="form-label">Perfil</label>
-                            <select class="form-control" id="editType" name="type" required>
+                            <label for="role" class="form-label">Tipo</label>
+                            <select class="form-control" id="type" name="type" required>
                                 <option value="INCOME">Receita</option>
                                 <option value="EXPENSE">Despesa</option>
                             </select>
@@ -82,7 +84,7 @@
 
                         <div class="mb-3">
                             <label for="editName" class="form-label">Descrição</label>
-                            <input type="text" class="form-control" id="editDescription" name="description" required>
+                            <input type="text" class="form-control" id="description" name="description" required>
                         </div>
 
                         <div class="modal-footer">
@@ -117,6 +119,19 @@
                             <input type="number" class="form-control" id="editAmount" name="amount" step="0.01" required>
                         </div>
 
+                        <div class="mb-3">
+                            <label for="role" class="form-label">Tipo</label>
+                            <select class="form-control" id="editType" name="type" required>
+                                <option value="INCOME">Receita</option>
+                                <option value="EXPENSE">Despesa</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="editName" class="form-label">Descrição</label>
+                            <input type="text" class="form-control" id="editDescription" name="description" required>
+                        </div>
+
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                             <button type="submit" class="btn btn-primary">Salvar</button>
@@ -128,10 +143,12 @@
     </div>
 
     <script>
-        function populateModal(id, date, amount) {
+        function populateModal(id, date, amount, type, description) {
             document.getElementById('editId').value = id;
             document.getElementById('editDate').value = date;
             document.getElementById('editAmount').value = amount;
+            document.getElementById('editType').value = type;
+            document.getElementById('editDescription').value = description;
             document.getElementById('editRevenueForm').action = `/revenues/update/${id}`;
         }
     </script>
