@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const User = require('./user');
+const roleUserEnum = require('./enums/roleUser');
 
 const UserConfig = sequelize.define('UserConfig', {
     id: {
@@ -17,19 +18,21 @@ const UserConfig = sequelize.define('UserConfig', {
         },
         onDelete: 'CASCADE'
     },
-    roles: {
-        type: DataTypes.JSONB, // Estrutura JSON para armazenar permissões
+    role: {
+        type: DataTypes.ENUM,
+        values: Object.values(roleUserEnum),
+    },          
+    churchsId: { // lista de ids separado por ,
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: {
-            churchsId: [],
-            role: "visualizador"
-        }
-    }
+        defaultValue: ""
+    },
 }, {
     timestamps: true
 });
 
 // Associações
 UserConfig.belongsTo(User, { foreignKey: 'userId' });
+User.hasOne(UserConfig, { foreignKey: 'userId' }); 
 
 module.exports = UserConfig;

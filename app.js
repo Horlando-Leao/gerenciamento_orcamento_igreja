@@ -11,6 +11,8 @@ var loginUserRouter = require('./routes/login.user');
 var authUserRouter = require('./routes/auth.user');
 var churchesRouter = require('./routes/churches');
 var revenuesRouter = require('./routes/revenues');
+var usersRouter = require('./routes/users');
+
 var { sequelize } = require('./models'); // Importa a conexão e os modelos
 
 var app = express();
@@ -54,6 +56,7 @@ app.use('', loginUserRouter);
 app.use('', authUserRouter);
 app.use('', churchesRouter);
 app.use('', revenuesRouter);
+app.use('', usersRouter)
 
 // catch 404 and forward to error handler =========================
 app.use(function(req, res, next) {

@@ -1,0 +1,24 @@
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-dark text-white" style="width: 250px; height: 100vh; position: fixed;">
+    <h4 class="text-center">IBLF</h4>
+    <h6 class="text-center">Olá <%= user.name %></h6> 
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+            <a href="/churches" class="nav-link text-white">
+                <i class="bi bi-building"></i> Início
+            </a>
+        </li>
+        <% if (user.role === "ADMINISTRADOR") { %>
+        <li>
+            <a href="/users/manage" class="nav-link text-white">
+                <i class="bi bi-building"></i> Usuário
+            </a>
+        </li>
+        <% } %>
+        <li>
+            <a href="/user/logout" class="nav-link text-white">
+                <i class="bi bi-cash-stack"></i> Sair
+            </a>
+        </li>
+    </ul>
+</div>
