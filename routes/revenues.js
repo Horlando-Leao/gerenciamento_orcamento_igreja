@@ -3,28 +3,54 @@ const router = express.Router();
 const { ChurchRevenue, Church } = require('../models');
 const { authMiddleware  } = require("../middlewares/authMiddleware.js");
 const { roleUserEnum } = require('../models/enums/roleUser.js');
+const { Op, Sequelize } = require('sequelize');
 
-// Listar receitas de todas as igrejas
 router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
     try {
         const churchId = req.params.churchId;
+        const { month, year } = req.query;
 
-        if(req.session.user.role === roleUserEnum.ADMINISTRADOR){
+        // Verifica se o usuário tem permissão para acessar a igreja
+        if (req.session.user.role === roleUserEnum.ADMINISTRADOR) {
             /** pass */
-        } else if (req.session.user.churchsId.split(",").includes(churchId)){
+        } else if (req.session.user.churchsId.split(",").includes(churchId)) {
             /** pass */
         } else {
-            throw new Error(`Usuário não é administrador e nem tem acesso ao id da igreja ${churchId}`) 
+            throw new Error(`Usuário não é administrador e nem tem acesso ao id da igreja ${churchId}`);
         }
 
-        const revenues = await ChurchRevenue.findAll({ include: Church, where: { churchId } });
+        // Define o mês e ano atual se não forem fornecidos
+        const currentDate = new Date();
+        const currentMonth = month ? parseInt(month) : currentDate.getMonth() + 1; // Mês atual (1-12)
+        const currentYear = year ? parseInt(year) : currentDate.getFullYear(); // Ano atual
+
+        // Filtra as receitas pelo mês e ano usando strftime do SQLite
+        const revenues = await ChurchRevenue.findAll({
+            include: Church,
+            where: {
+                churchId,
+                [Op.and]: [
+                    Sequelize.where(Sequelize.fn('strftime', '%m', Sequelize.col('date')), String(currentMonth).padStart(2, '0')),
+                    Sequelize.where(Sequelize.fn('strftime', '%Y', Sequelize.col('date')), String(currentYear))
+                ]
+            }
+        });
+
         const church = await Church.findByPk(churchId);
-        
-        res.render('revenues/index', { title: 'Receitas das Igrejas', revenues, church, user: { name: req.session.user.name }});
+
+        res.render('revenues/index', {
+            title: 'Receitas das Igrejas',
+            revenues,
+            church,
+            user: req.session.user,
+            currentMonth,
+            currentYear
+        });
     } catch (error) {
         res.status(500).send(`Erro ao carregar receitas: ${error}`);
     }
 });
+
 
 // Rota para adicionar uma nova receita
 router.post('/revenues/add', authMiddleware, async (req, res) => {
