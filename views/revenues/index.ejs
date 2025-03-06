@@ -32,7 +32,7 @@
                         <td><%= revenue.id %></td>
                         <td><%= revenue.date.split("-").reverse().join("/") %></td>
                         <td>R$ <%= revenue.amount.toFixed(2) %></td>
-                        <td><%= revenue.type == "INCOME" ? "Receita" : "Despesa" %></td>
+                        <td><%= revenue.type %></td>
                         <td>
                             <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editRevenueModal" 
                                     onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= revenue.amount.toFixed(2) %>', '<%= revenue.type %>', '<%= revenue.description %>')">
@@ -77,8 +77,9 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Tipo</label>
                             <select class="form-control" id="type" name="type" required>
-                                <option value="INCOME">Receita</option>
-                                <option value="EXPENSE">Despesa</option>
+                                <option value="DÍZIMO">DÍZIMO</option>
+                                <option value="OFERTA">OFERTA</option>
+                                <option value="DESPESA">DESPESA</option>
                             </select>
                         </div>
 
@@ -122,8 +123,9 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Tipo</label>
                             <select class="form-control" id="editType" name="type" required>
-                                <option value="INCOME">Receita</option>
-                                <option value="EXPENSE">Despesa</option>
+                                <option value="DÍZIMO">DÍZIMO</option>
+                                <option value="OFERTA">OFERTA</option>
+                                <option value="DESPESA">DESPESA</option>
                             </select>
                         </div>
 
