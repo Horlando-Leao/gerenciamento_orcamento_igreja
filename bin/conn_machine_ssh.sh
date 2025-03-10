@@ -1,0 +1,1 @@
+ssh -i ~/.ssh/chave-oracle ubuntu@129.213.137.207

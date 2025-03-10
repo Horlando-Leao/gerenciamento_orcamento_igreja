@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const User = require('./user');
-const roleUserEnum = require('./enums/roleUser');
+const { roleUserEnum } = require('./enums/roleUser');
 
 const UserConfig = sequelize.define('UserConfig', {
     id: {

@@ -16,6 +16,13 @@
             <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addRevenueModal">Nova Receita</button>
         </div>
         
+        <!-- Botões de navegação de mês -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <a href="/revenues/<%= church.id %>?month=<%= currentMonth - 1 %>&year=<%= currentYear %>" class="btn btn-primary">Mês Anterior</a>
+            <span class="h4"><%= new Date(currentYear, currentMonth - 1).toLocaleString('default', { month: 'long' }) %> <%= currentYear %></span>
+            <a href="/revenues/<%= church.id %>?month=<%= currentMonth + 1 %>&year=<%= currentYear %>" class="btn btn-primary">Próximo Mês</a>
+        </div>
+        
         <table class="table table-striped table-hover mt-4">
             <thead class="table-dark">
                 <tr>
@@ -32,7 +39,7 @@
                         <td><%= revenue.id %></td>
                         <td><%= revenue.date.split("-").reverse().join("/") %></td>
                         <td>R$ <%= revenue.amount.toFixed(2) %></td>
-                        <td><%= revenue.type == "INCOME" ? "Receita" : "Despesa" %></td>
+                        <td><%= revenue.type %></td>
                         <td>
                             <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editRevenueModal" 
                                     onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= revenue.amount.toFixed(2) %>', '<%= revenue.type %>', '<%= revenue.description %>')">
@@ -43,9 +50,7 @@
                 <% }) %>
             </tbody>
         </table>
-
         <a href="/churches" class="btn btn-secondary mt-3">Voltar</a>
-    </div>
 
     <!-- Modal de Cadastro de Receita -->
     <div class="modal fade" id="addRevenueModal" tabindex="-1" aria-labelledby="addRevenueModalLabel" aria-hidden="true">
@@ -77,8 +82,9 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Tipo</label>
                             <select class="form-control" id="type" name="type" required>
-                                <option value="INCOME">Receita</option>
-                                <option value="EXPENSE">Despesa</option>
+                                <option value="DÍZIMO">DÍZIMO</option>
+                                <option value="OFERTA">OFERTA</option>
+                                <option value="DESPESA">DESPESA</option>
                             </select>
                         </div>
 
@@ -122,8 +128,9 @@
                         <div class="mb-3">
                             <label for="role" class="form-label">Tipo</label>
                             <select class="form-control" id="editType" name="type" required>
-                                <option value="INCOME">Receita</option>
-                                <option value="EXPENSE">Despesa</option>
+                                <option value="DÍZIMO">DÍZIMO</option>
+                                <option value="OFERTA">OFERTA</option>
+                                <option value="DESPESA">DESPESA</option>
                             </select>
                         </div>
 

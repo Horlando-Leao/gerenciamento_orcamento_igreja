@@ -2,6 +2,10 @@
   "name": "iblf-gerenciador-orcamento",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "npm": ">=10.9.2",
+    "node": ">=22.13.1"
+  },
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
@@ -21,6 +25,7 @@
     "express-session": "^1.18.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "mysql2": "^3.13.0",
     "resend": "^4.1.2",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"

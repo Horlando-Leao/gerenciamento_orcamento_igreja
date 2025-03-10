@@ -10,7 +10,7 @@ module.exports = {
         userId: 1,
         date: '2025-02-01',
         amount: 500.00,
-        type: "INCOME",
+        type: "DÍZIMO",
         description: "dizimos",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -21,7 +21,7 @@ module.exports = {
         churchId: 2,
         date: '2025-02-02',
         amount: 750.50,
-        type: "INCOME",
+        type: "DÍZIMO",
         description: "dizimos",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -32,8 +32,8 @@ module.exports = {
         churchId: 2,
         date: '2025-02-03',
         amount: 1200.00,
-        type: "EXPENSE",
-        description: "dizimos",
+        type: "OFERTA",
+        description: "ofertas",
         createdAt: new Date(),
         updatedAt: new Date()
       }
