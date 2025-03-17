@@ -38,11 +38,11 @@
                     <tr>
                         <td><%= revenue.id %></td>
                         <td><%= revenue.date.split("-").reverse().join("/") %></td>
-                        <td>R$ <%= revenue.amount.toFixed(2) %></td>
+                        <td>R$ <%= !isNaN(parseFloat(revenue.amount)) ? parseFloat(revenue.amount).toFixed(2) : '0.00' %></td>
                         <td><%= revenue.type %></td>
                         <td>
                             <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editRevenueModal" 
-                                    onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= revenue.amount.toFixed(2) %>', '<%= revenue.type %>', '<%= revenue.description %>')">
+                                    onclick="populateModal('<%= revenue.id %>', '<%= revenue.date %>', '<%= !isNaN(parseFloat(revenue.amount)) ? parseFloat(revenue.amount).toFixed(2) : '0.00' %>', '<%= revenue.type %>', '<%= revenue.description %>')">
                                 Info
                             </button>
                         </td>

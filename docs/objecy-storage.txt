@@ -1,0 +1,5 @@
+name:
+par-bucket-20250316-1306
+
+Pre-Authenticated Request URL:
+https://objectstorage.us-ashburn-1.oraclecloud.com/p/J4AHfGiLKnqV1fFVN01nHh3hyJNJQQZZnymhBJnvoHAsH_UagBgrJEjJCHhbdSqV/n/iduzjsw5u00v/b/bucket-mysql-dump-iblf/o/

@@ -1,25 +1,25 @@
 {
   "development": {
     "dialect": "mysql",
-    "host": "localhost",
+    "host": "mysql_db",
     "username": "root",
-    "password": "example",
+    "password": "c5JlX58lpbW",
     "database": "iblf",
     "port": 3306
   },
   "test": {
     "dialect": "mysql",
-    "host": "localhost",
+    "host": "mysql_db",
     "username": "root",
-    "password": "example",
+    "password": "c5JlX58lpbW",
     "database": "iblf",
     "port": 3306
   },
   "production": {
     "dialect": "mysql",
-    "host": "10.0.0.51",
+    "host": "localhost",
     "username": "root",
-    "password": "c5JlX}58lpbW",
+    "password": "c5JlX58lpbW",
     "database": "iblf",
     "port": 3306
   }
