@@ -4,7 +4,7 @@ FROM node:22.13.1
 WORKDIR /app
 
 # Instala o mysql-client para ter o mysqldump
-RUN apt-get update && apt-get install -y mysql-client && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y default-mysql-client && rm -rf /var/lib/apt/lists/*
 
 
 # Copia os arquivos de dependências
