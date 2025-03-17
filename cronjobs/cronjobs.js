@@ -13,9 +13,9 @@ const taskBackup = () => {
     cronManager.addJob("gerar-backup-mysql", "0 1 * * *", () => dumpDatabase(dumpFile), false);
     cronManager.addJob("salvar-backup-mysql", "0 2 * * *", () => objectStorage.upload(dumpFile))
 
-    cronManager.startJob("apagar-todos-backups");
-    cronManager.startJob("gerar-backup-mysql");
-    cronManager.startJob("salvar-backup-mysql");
+    // cronManager.startJob("apagar-todos-backups");
+    // cronManager.startJob("gerar-backup-mysql");
+    // cronManager.startJob("salvar-backup-mysql");
 }
 taskBackup()
 
