@@ -26,6 +26,8 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "mysql2": "^3.13.0",
+    "node-cron": "^3.0.3",
+    "node-fetch": "^3.3.2",
     "resend": "^4.1.2",
     "sequelize": "^6.37.5",
     "sqlite3": "^5.1.7"

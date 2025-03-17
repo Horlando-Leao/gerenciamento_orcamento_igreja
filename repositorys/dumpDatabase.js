@@ -4,11 +4,9 @@ const path = require('path');
 const fs = require('fs');
 
 // Carregar configurações do Sequelize
-const config = require('../config/config.json');
-const env = process.env.NODE_ENV || 'development';
-const dbConfig = config[env];
+const { config } = require('../config/config');
 
-const sequelize = new Sequelize(dbConfig);
+const sequelize = new Sequelize(config);
 
 /**
  * Realiza o dump do banco de dados MySQL.
@@ -19,10 +17,10 @@ async function dumpDatabase(outputPath = null) {
     await sequelize.authenticate();
     console.log('Conectado ao banco de dados!');
 
-    const dumpPath = outputPath || path.join(__dirname, '..', 'backups', `backup_${dbConfig.database}_${Date.now()}.sql`);
+    const dumpPath = outputPath || path.join(__dirname, '..', 'backups', `backup_${config.database}_${Date.now()}.sql`);
 
     // Comando mysqldump
-    const dumpCommand = `mysqldump -h ${dbConfig.host} -P ${dbConfig.port || 3306} -u${dbConfig.username} -p${dbConfig.password} ${dbConfig.database} > ${dumpPath}`;
+    const dumpCommand = `mysqldump -h ${config.host} -P ${config.port || 3306} -u${config.username} -p${config.password} ${config.database} > ${dumpPath}`;
     
     exec(dumpCommand, (error, stdout, stderr) => {
       if (error) {

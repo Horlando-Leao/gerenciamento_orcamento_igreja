@@ -74,11 +74,11 @@ class CronManager {
    */
    listJobsRunning() {
     const jobsStatus = [];
-    
     this.jobs.forEach((job, name) => {
+      // console.log(job, name)
       jobsStatus.push({
         name,
-        running: job.getStatus() === 'running', // Verifica se o job está em execução
+        running: job.options.scheduled === true, // Verifica se o job está em execução
       });
     });
     

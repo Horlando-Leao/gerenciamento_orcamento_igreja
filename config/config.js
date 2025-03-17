@@ -1,18 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+// Carregar configurações do Sequelize
+const config = require('./config.json');
+const env = process.env.NODE_ENV || 'development';
+const dbConfig = config[env];
 
-function readConfig() {
-    try {
-        const filePath = path.join(__dirname, 'config.json');
-        const data = fs.readFileSync(filePath, 'utf8');
-        const config = JSON.parse(data);
-        return config;
-    } catch (error) {
-        console.error('Erro ao ler o arquivo JSON:', error);
-        return null;
-    }
-}
+module.exports = { config: dbConfig }
 
-const config = readConfig();
-
-module.exports = { config }

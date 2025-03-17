@@ -14,8 +14,12 @@ var revenuesRouter = require('./routes/revenues');
 var usersRouter = require('./routes/users');
 
 var { sequelize } = require('./models'); // Importa a conexão e os modelos
+const { initCronManager } = require('./cronjobs/cronjobs');
+
 
 var app = express();
+
+initCronManager();
 
 // config session ===============================================
 app.use(session({
