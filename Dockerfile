@@ -3,9 +3,6 @@ FROM node:22.13.1
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Instala o mysql-client para ter o mysqldump
-RUN apt-get update && apt-get install -y default-mysql-client && rm -rf /var/lib/apt/lists/*
-
 
 # Copia os arquivos de dependências
 COPY package*.json ./

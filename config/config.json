@@ -1,26 +1,14 @@
 {
   "development": {
-    "dialect": "mysql",
-    "host": "mysql_db",
-    "username": "root",
-    "password": "c5JlX58lpbW",
-    "database": "iblf",
-    "port": 3306
+    "dialect": "sqlite",
+    "storage": "./databases/database.sqlite"
   },
   "test": {
-    "dialect": "mysql",
-    "host": "mysql_db",
-    "username": "root",
-    "password": "c5JlX58lpbW",
-    "database": "iblf",
-    "port": 3306
+    "dialect": "sqlite",
+    "storage": "./databases/database_test.sqlite"
   },
   "production": {
-    "dialect": "mysql",
-    "host": "localhost",
-    "username": "root",
-    "password": "c5JlX58lpbW",
-    "database": "iblf",
-    "port": 3306
+    "dialect": "sqlite",
+    "storage": "./databases/database_production.sqlite"
   }
 }
