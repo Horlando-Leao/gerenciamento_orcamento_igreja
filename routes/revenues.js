@@ -24,14 +24,14 @@ router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
         const currentMonth = month ? parseInt(month) : currentDate.getMonth() + 1; // Mês atual (1-12)
         const currentYear = year ? parseInt(year) : currentDate.getFullYear(); // Ano atual
 
-        // Filtra as receitas pelo mês e ano usando DATE_FORMAT do MySQL
+        // Filtra as receitas pelo mês e ano usando strftime do SQLite
         const revenues = await ChurchRevenue.findAll({
             include: Church,
             where: {
                 churchId,
                 [Op.and]: [
-                    Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('date'), '%m'), String(currentMonth).padStart(2, '0')),
-                    Sequelize.where(Sequelize.fn('DATE_FORMAT', Sequelize.col('date'), '%Y'), String(currentYear))
+                    Sequelize.where(Sequelize.fn('strftime', '%m', Sequelize.col('date')), String(currentMonth).padStart(2, '0')),
+                    Sequelize.where(Sequelize.fn('strftime', '%Y', Sequelize.col('date')), String(currentYear))
                 ]
             }
         });
