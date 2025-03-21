@@ -3,5 +3,5 @@ const config = require('./config.json');
 const env = process.env.NODE_ENV || 'development';
 const dbConfig = config[env];
 
-module.exports = { config: dbConfig }
+module.exports =  dbConfig;
 
