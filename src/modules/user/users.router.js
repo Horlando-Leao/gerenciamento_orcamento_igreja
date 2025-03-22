@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
-const Church = require('../models/church');
-const UserConfig = require('../models/userConfig');
+const User = require('../../../models/user');
+const Church = require('../../../models/church');
+const UserConfig = require('../../../models/userConfig');
 const { gerarSenha } = require("../helpers/gerarSenha");
 const { ChurchIdTranformer } = require("../transformers/churchsIds");
 const { hasAdministradorMiddle } = require('../middlewares/hasAdministradorMiddle');

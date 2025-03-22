@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-const { UserConfig } = require('../models');
+const { UserConfig } = require('../../../models');
 
 async function findUsersByChurchIds(churchIds) {
     if (!Array.isArray(churchIds)) {

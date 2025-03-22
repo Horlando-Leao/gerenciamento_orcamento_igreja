@@ -1,8 +1,8 @@
 const express = require('express');
 var router = express.Router();
-const { Church } = require('../models'); // Importa o modelo
+const { Church } = require('../../../models/index.js'); // Importa o modelo
 const { authMiddleware  } = require("../middlewares/authMiddleware.js");
-const { roleUserEnum } = require('../models/enums/roleUser.js');
+const { roleUserEnum } = require('../../../models/enums/roleUser.js');
 const { ChurchIdTranformer } = require('../transformers/churchsIds.js');
 const { Op } = require('sequelize');
 
