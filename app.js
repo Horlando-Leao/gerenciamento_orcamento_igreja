@@ -7,16 +7,15 @@ var logger = require('morgan');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
-var indexRouter = require('./routes/index');
-var loginUserRouter = require('./routes/login.user');
-var authUserRouter = require('./routes/auth.user');
-var churchesRouter = require('./routes/churches');
-var revenuesRouter = require('./routes/revenues');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./src/modules/home/index.router');
+var loginUserRouter = require('./src/modules/user/login.user.router');
+var authUserRouter = require('./src/modules/user/auth.user.router');
+var churchesRouter = require('./src/modules/church/churches.router');
+var revenuesRouter = require('./src/modules/revenue/revenues.router');
+var usersRouter = require('./src/modules/user/users.router');
 
-var { sequelize } = require('./models'); // Importa a conexão e os modelos
-const { initCronManager } = require('./cronjobs/cronjobs');
-
+var { sequelize } = require('./src/database/models'); // Adjusted path for models
+const { initCronManager } = require('./infra/cronManager/index');
 
 var app = express();
 
