@@ -38,7 +38,7 @@ router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
 
         const church = await Church.findByPk(churchId);
 
-        res.render('revenues/index', {
+        res.render('revenue/views/index', {
             title: 'Receitas das Igrejas',
             revenues,
             church,

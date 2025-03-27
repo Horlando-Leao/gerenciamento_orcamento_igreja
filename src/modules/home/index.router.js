@@ -4,7 +4,7 @@ const { hasAuthMiddleware } = require("../../middlewares/hasAuthMiddleware");
 
 /* GET home page. */
 router.get('/', hasAuthMiddleware, function(req, res, next) {
-  res.render('index', { title: 'Gestão Financeira IBLF' });
+  res.render('home/views/index', { title: 'Gestão Financeira IBLF' });
 });
 
 module.exports = router;

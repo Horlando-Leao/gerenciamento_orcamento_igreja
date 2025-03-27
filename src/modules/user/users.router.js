@@ -16,7 +16,7 @@ router.get('/users/manage', authMiddleware, hasAdministradorMiddle, async (req, 
         const churches = await Church.findAll({ attributes: ['id', 'name'] });
         const novaSenhaAlerta = req.session.novaSenhaAlerta;
         req.session.novaSenhaAlerta = null;
-        res.render('users/index', { title: 'Usuários', users, user: req.session.user, novaSenhaAlerta, churches });
+        res.render('user/views/index', { title: 'Usuários', users, user: req.session.user, novaSenhaAlerta, churches });
     } catch (error) {
         console.log(error)
         res.status(500).send('Erro ao buscar usuários');

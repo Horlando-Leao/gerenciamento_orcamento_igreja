@@ -25,24 +25,10 @@ router.get('/churches', authMiddleware, async (req, res) => {
             throw new Error("Tipo de usuario não encontrado");
         }
         
-        res.render('churches/index', { title: 'Lista de Igrejas', churches, user:  req.session.user });
+        res.render('church/views/index', { title: 'Lista de Igrejas', churches, user:  req.session.user });
     } catch (error) {
         console.error('Erro ao buscar igrejas:', error);
         res.status(500).send('Erro ao carregar igrejas');
-    }
-});
-
-// Detalhes de uma igreja
-router.get('/churches/:id', authMiddleware, async (req, res) => {
-    try {
-        const church = await Church.findByPk(req.params.id);
-        if (!church) {
-            return res.status(404).send('Igreja não encontrada');
-        }
-        res.render('churches/details', { title: `Detalhes de ${church.name}`, church });
-    } catch (error) {
-        console.error('Erro ao buscar detalhes da igreja:', error);
-        res.status(500).send('Erro ao carregar detalhes');
     }
 });
 

@@ -8,8 +8,8 @@ const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
 var indexRouter = require('./src/modules/home/index.router');
-var loginUserRouter = require('./src/modules/user/login.user.router');
-var authUserRouter = require('./src/modules/user/auth.user.router');
+var loginUserRouter = require('./src/modules/login/login.user.router');
+var authUserRouter = require('./src/modules/auth/auth.user.router.js');
 var churchesRouter = require('./src/modules/church/churches.router');
 var revenuesRouter = require('./src/modules/revenue/revenues.router');
 var usersRouter = require('./src/modules/user/users.router');
@@ -44,7 +44,7 @@ sequelize.authenticate()
     });
 
 // view engine setup ==============================================
-app.set('views', path.join(__dirname, 'src/modules'));
+app.set('views', path.join(__dirname, 'src', 'modules'));
 
 app.set('view engine', 'ejs');
 
@@ -74,7 +74,7 @@ app.use(function(err, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     res.status(err.status || 500);
-    res.render('error');
+    res.render('common/views/error.ejs');
 });
 
 module.exports = app;
