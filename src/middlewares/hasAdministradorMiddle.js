@@ -1,4 +1,4 @@
-const { roleUserEnum } = require("../../models/enums/roleUser");
+const { roleUserEnum } = require("../../infra/database/models/enums/roleUser");
 
 
 function hasAdministradorMiddle(req, res, next) {

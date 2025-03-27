@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User, Church, UserConfig } = require('../../../models');
+const { User, Church, UserConfig } = require('../../../infra/database/models');
 const { gerarSenha } = require('../../helpers/gerarSenha');
 const { ChurchIdTranformer } = require('../../transformers/churchsIds');
 const { hasAdministradorMiddle } = require('../../middlewares/hasAdministradorMiddle');
