@@ -7,16 +7,15 @@ var logger = require('morgan');
 const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 
-var indexRouter = require('./routes/index');
-var loginUserRouter = require('./routes/login.user');
-var authUserRouter = require('./routes/auth.user');
-var churchesRouter = require('./routes/churches');
-var revenuesRouter = require('./routes/revenues');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./src/modules/home/index.router');
+var loginUserRouter = require('./src/modules/login/login.user.router');
+var authUserRouter = require('./src/modules/auth/auth.user.router.js');
+var churchesRouter = require('./src/modules/church/churches.router');
+var revenuesRouter = require('./src/modules/revenue/revenues.router');
+var usersRouter = require('./src/modules/user/users.router');
 
-var { sequelize } = require('./models'); // Importa a conexão e os modelos
+const sequelize = require('./database.js'); // Adjusted path for models
 const { initCronManager } = require('./cronjobs/cronjobs');
-
 
 var app = express();
 
@@ -45,7 +44,8 @@ sequelize.authenticate()
     });
 
 // view engine setup ==============================================
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'src', 'modules'));
+
 app.set('view engine', 'ejs');
 
 // config =========================================================
@@ -74,7 +74,7 @@ app.use(function(err, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     res.status(err.status || 500);
-    res.render('error');
+    res.render('common/views/error.ejs');
 });
 
 module.exports = app;

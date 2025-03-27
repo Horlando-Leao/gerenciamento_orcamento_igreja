@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/user');
-const Church = require('../models/church');
-const UserConfig = require('../models/userConfig');
-const { gerarSenha } = require("../helpers/gerarSenha");
-const { ChurchIdTranformer } = require("../transformers/churchsIds");
-const { hasAdministradorMiddle } = require('../middlewares/hasAdministradorMiddle');
-const { authMiddleware } = require('../middlewares/authMiddleware');
+const { User, Church, UserConfig } = require('../../../models');
+const { gerarSenha } = require('../../helpers/gerarSenha');
+const { ChurchIdTranformer } = require('../../transformers/churchsIds');
+const { hasAdministradorMiddle } = require('../../middlewares/hasAdministradorMiddle');
+const { authMiddleware } = require('../../middlewares/authMiddleware');
 
-// Lista todos os usuários  
+// Lista todos os usuários 
 router.get('/users/manage', authMiddleware, hasAdministradorMiddle, async (req, res) => {
     try {
         const users = await User.findAll({
@@ -18,7 +16,7 @@ router.get('/users/manage', authMiddleware, hasAdministradorMiddle, async (req, 
         const churches = await Church.findAll({ attributes: ['id', 'name'] });
         const novaSenhaAlerta = req.session.novaSenhaAlerta;
         req.session.novaSenhaAlerta = null;
-        res.render('users/index', { title: 'Usuários', users, user: req.session.user, novaSenhaAlerta, churches });
+        res.render('user/views/index', { title: 'Usuários', users, user: req.session.user, novaSenhaAlerta, churches });
     } catch (error) {
         console.log(error)
         res.status(500).send('Erro ao buscar usuários');

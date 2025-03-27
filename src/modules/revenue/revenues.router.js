@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { ChurchRevenue, Church } = require('../models');
-const { authMiddleware  } = require("../middlewares/authMiddleware.js");
-const { roleUserEnum } = require('../models/enums/roleUser.js');
+const { ChurchRevenue, Church } = require('../../../models');
+const { authMiddleware } = require('../../middlewares/authMiddleware.js');
+const { roleUserEnum } = require('../../../models/enums/roleUser.js');
 const { Op, Sequelize } = require('sequelize');
 
 router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
@@ -38,7 +38,7 @@ router.get('/revenues/:churchId', authMiddleware, async (req, res) => {
 
         const church = await Church.findByPk(churchId);
 
-        res.render('revenues/index', {
+        res.render('revenue/views/index', {
             title: 'Receitas das Igrejas',
             revenues,
             church,

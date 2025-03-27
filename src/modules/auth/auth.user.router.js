@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { User } = require('../models');
-const { UserConfig } = require('../models');
+const { User, UserConfig } = require('../../../models');
 
 // Rota para processar o login
 router.post('/user/auth', async function(req, res) {
