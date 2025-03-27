@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../../../../src/database/models/user');
-const Church = require('../../../../src/database/models/church');
-const UserConfig = require('../../../../src/database/models/userConfig');
+const { User, Church, UserConfig } = require('../../../models');
 const { gerarSenha } = require('../../helpers/gerarSenha');
 const { ChurchIdTranformer } = require('../../transformers/churchsIds');
 const { hasAdministradorMiddle } = require('../../middlewares/hasAdministradorMiddle');
 const { authMiddleware } = require('../../middlewares/authMiddleware');
 
-// Lista todos os usuários  
+// Lista todos os usuários 
 router.get('/users/manage', authMiddleware, hasAdministradorMiddle, async (req, res) => {
     try {
         const users = await User.findAll({

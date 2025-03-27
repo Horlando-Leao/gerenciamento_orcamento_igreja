@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { ChurchRevenue, Church } = require('../../../../src/database/models/index.js');
+const { ChurchRevenue, Church } = require('../../../models');
 const { authMiddleware } = require('../../middlewares/authMiddleware.js');
-const { roleUserEnum } = require('../../../../src/database/models/enums/roleUser.js');
+const { roleUserEnum } = require('../../../models/enums/roleUser.js');
 const { Op, Sequelize } = require('sequelize');
 
 router.get('/revenues/:churchId', authMiddleware, async (req, res) => {

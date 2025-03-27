@@ -14,8 +14,8 @@ var churchesRouter = require('./src/modules/church/churches.router');
 var revenuesRouter = require('./src/modules/revenue/revenues.router');
 var usersRouter = require('./src/modules/user/users.router');
 
-var { sequelize } = require('./src/database/models'); // Adjusted path for models
-const { initCronManager } = require('./infra/cronManager/index');
+const sequelize = require('./database.js'); // Adjusted path for models
+const { initCronManager } = require('./cronjobs/cronjobs');
 
 var app = express();
 
