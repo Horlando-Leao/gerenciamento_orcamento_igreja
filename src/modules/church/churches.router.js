@@ -1,8 +1,8 @@
 const express = require('express');
 var router = express.Router();
-const { Church } = require('../../../models');
+const { Church } = require('../../../infra/database/models/index');
 const { authMiddleware } = require('../../middlewares/authMiddleware.js');
-const { roleUserEnum } = require('../../../models/enums/roleUser.js');
+const { roleUserEnum } = require('../../../infra/database/models/enums/roleUser.js');
 const { ChurchIdTranformer } = require('../../transformers/churchsIds.js');
 const { Op } = require('sequelize');
 

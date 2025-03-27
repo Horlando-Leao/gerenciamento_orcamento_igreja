@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database');
+const sequelize = require('../client');
 const User = require('./user');
 const { roleUserEnum } = require('./enums/roleUser');
 

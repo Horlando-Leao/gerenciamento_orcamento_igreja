@@ -1,14 +1,29 @@
 {
   "development": {
     "dialect": "sqlite",
-    "storage": "./databases/database.sqlite"
+    "storage": "./databases/database.sqlite",
+    "define": {
+      "modelsPath": "infra/database/models",
+      "seedersPath": "infra/database/seeders",
+      "migrationsPath": "infra/database/migrations"
+    }
   },
   "test": {
     "dialect": "sqlite",
-    "storage": "./databases/database_test.sqlite"
+    "storage": "./databases/database_test.sqlite",
+    "define": {
+      "modelsPath": "infra/database/models",
+      "seedersPath": "infra/database/seeders",
+      "migrationsPath": "infra/database/migrations"
+    }
   },
   "production": {
     "dialect": "sqlite",
-    "storage": "./databases/database_production.sqlite"
+    "storage": "./databases/database_production.sqlite",
+    "define": {
+      "modelsPath": "infra/database/models",
+      "seedersPath": "infra/database/seeders",
+      "migrationsPath": "infra/database/migrations"
+    }
   }
 }

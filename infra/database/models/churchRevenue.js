@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const sequelize = require('../database'); // Importa a conexão do banco de dados
+const sequelize = require('../client'); // Importa a conexão do banco de dados
 const Church = require('./church');  // Importa o modelo Church
 const User = require('./user'); // Importa o modelo Church
 const transactionTypeEnum = require('./enums/transactionType');
