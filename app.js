@@ -23,7 +23,7 @@ initCronManager();
 
 // config session ===============================================
 app.use(session({
-    store: new SQLiteStore({ db: 'sessions.sqlite', dir: './databases' }),
+    store: new SQLiteStore({ db: process.env["FILE_DB_SESSION"], dir: process.env["PATH_DB_SESSION"] }),
     secret: 'chave-secreta', // Altere para uma chave segura
     resave: false,
     saveUninitialized: false,
