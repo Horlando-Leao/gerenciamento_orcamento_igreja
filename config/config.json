@@ -19,7 +19,7 @@
   },
   "production": {
     "dialect": "sqlite",
-    "storage": "./databases/database_production.sqlite",
+    "storage": "../databases/database_production.sqlite",
     "define": {
       "modelsPath": "infra/database/models",
       "seedersPath": "infra/database/seeders",
